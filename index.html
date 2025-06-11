@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Apresentação Segurança Cibernética - Ataques e Proteções</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+  * {
+    box-sizing: border-box;
+  }
+  body, html {
+    margin: 0;
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    background-color: #121212;
+    color: #f0f0f0;
+    overflow: hidden;
+  }
+
+  #presentation {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  canvas#background-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .slide {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 900px;
+    max-height: 90vh;
+    width: 90vw;
+    padding: 32px 48px;
+    background: rgba(18,18,18,0.85);
+    border-radius: 16px;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.75);
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    z-index: 10;
+  }
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  h1, h2 {
+    margin-bottom: 16px;
+    font-weight: 700;
+    color: #8a63d2; /* Purple accent */
+  }
+  h1 {
+    font-size: 3rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  p, ul {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    color: #d0d0d0;
+  }
+  ul {
+    padding-left: 20px;
+  }
+  li {
+    margin-bottom: 8px;
+  }
+
+  img.slide-image {
+    max-width: 350px;
+    max-height: 300px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 8px 24px rgba(138, 99, 210, 0.7);
+    user-select: none;
+  }
+
+  /* Navigation Buttons */
+  .nav-buttons {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 24px;
+    z-index: 20;
+  }
+  button.nav-btn {
+    background: #8a63d2;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    min-width: 120px;
+  }
+  button.nav-btn:disabled {
+    background: #522893;
+    cursor: default;
+  }
+  button.nav-btn:hover:not(:disabled) {
+    background-color: #a37eea;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .slide {
+      flex-direction: column;
+      max-width: 90vw;
+      padding: 24px;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    img.slide-image {
+      max-width: 100%;
+      max-height: 200px;
+      margin: 0 auto 24px;
+    }
+    h1 {
+      font-size: 2.5rem;
+    }
+    h2 {
+      font-size: 1.75rem;
+    }
+  }
+</style>
+</head>
+<body>
+<div id="presentation" role="region" aria-label="Apresentação sobre Segurança Cibernética">
+
+  <canvas id="background-canvas" aria-hidden="true"></canvas>
+
+  <!-- Slide 1: Title -->
+  <section class="slide active" id="slide-1" aria-live="polite" aria-atomic="true">
+    <div class="slide-content">
+      <h1>Segurança Cibernética - Ataques e Proteções</h1>
+      <p>Apresentação abrangente sobre ataques cibernéticos recentes e as tecnologias de defesa essenciais.</p>
+      <p>Inclui análise de ataques a grandes instituições e conceitos de criptografia e gestão de identidades.</p>
+    </div>
+    <img class="slide-image" 
+      src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7f71c0fb-37f8-4c91-9d36-413a27333920.png" 
+      alt="Imagem abstrata representando tecnologia de segurança cibernética com circuitos digitais roxos e azuis" />
+  </section>
+
+  <!-- Slide 2: Ataque Caso TfL -->
+  <section class="slide" id="slide-2" aria-live="polite" aria-atomic="true">
+    <div class="slide-content">
+      <h2>Ataque Caso TfL (Transport for London) - Setembro 2024</h2>
+      <p><strong>Tipo de ataque:</strong> Ransomware com sequestração e criptografia de dados internos e vazamento na dark web para extorsão.</p>
+      <p><strong>Impactos:</strong></p>
+      <ul>
+        <li>Financeiro: custos superiores a £30 milhões (R$ 200 milhões) para recuperação e segurança.</li>
+        <li>Operacional: interrupção em sistemas críticos de transporte e bilhetagem.</li>
+        <li>Imagem: perda de confiança pública e comercial.</li>
+        <li>Dados vazados: informações técnicas e sensíveis de clientes e funcionários.</li>
+      </ul>
+    </div>
+    <img class="slide-image" 
+      src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b6189251-541d-46cf-b31e-0f64118ed062.png" 
+      alt="Ilustração de computador infectado por ransomware com cadeado vermelho digital bloqueando dados" />
+  </section>
+
+  <!-- Slide 3: Respostas e Prevenções TfL -->
+  <section class="slide" id="slide-3" aria-live="polite" aria-atomic="true">
+    <div class="slide-content">
+      <h2>Ações Após Ataque e Prevenção TfL</h2>
+      <p><strong>Ações realizadas:</strong></p>
+      <ul>
+        <li>Resposta emergencial e isolamento de sistemas.</li>
+        <li>Contratação de consultorias externas para análise forense.</li>
+        <li>Atualização de firewalls, MFA e monitoramento.</li>
+        <li>Notificação às autoridades de proteção de dados.</li>
+      </ul>
+      <p><strong>Medidas que poderiam ter evitado o ataque:</strong></p>
+      <ul>
+        <li>Backups isolados e recentes.</li>
+        <li>Pentests e testes de vulnerabilidade.</li>
+        <li>Treinamento contínuo contra phishing.</li>
+        <li>Autenticação multifator rigorosa.</li>
+        <li>Monitoramento contínuo de rede.</li>
+      </ul>
+    </div>
+    <img class="slide-image" 
+      src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fc6dd79f-9f92-4881-859a-66b39a8cc5aa.png" 
+      alt="Imagem de cadeado digital azul envolvendo sistema com gráficos de segurança e escudo" />
+  </section>
+
+  <!-- Slide 4: Ataque ‘Azael’ (DDoS) -->
+  <section class="slide" id="slide-4" aria-live="polite" aria-atomic="true">
+    <div class="slide-content">
+      <h2>Ataque ‘Azael’ - DDoS - Março 2025</h2>
+      <p><strong>Descrição:</strong> Ataques DDoS massivos anunciados com antecedência pelo hacker, visando indisponibilidade de serviços públicos.</p>
+      <p><strong>Consequências:</strong></p>
+      <ul>
+        <li>Indisponibilidade de sites institucionais (Marinha, USP, STJ, etc.).</li>
+        <li>Paralisação de atividades acadêmicas e administrativas.</li>
+        <li>Prejuízo reputacional e exposição de falhas de segurança.</li>
+        <li>Risco de vazamento de dados sensíveis em algumas instituições.</li>
+      </ul>
+    </div>
+    <img class="slide-image" 
+      src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/62abde88-9854-4d34-aac5-171b2c7d284c.png" 
+      alt="Ilustração de servidor sendo atacado por múltiplas conexões digitais representando ataque DDoS" />
+  </section>
+
+  <!-- Slide 5: Respostas e Prevenção Ataques DDoS -->
+  <section class="slide" id="slide-5" aria-live="polite" aria-atomic="true">
+    <div class="slide-content">
+      <h2>Ações Pós-Ataque e Medidas de Mitigação DDoS</h2>
+      <p><strong>Ações adotadas:</strong></p>
+      <ul>
+        <li>Uso de firewalls, filtros e sistemas de mitigação de DDoS.</li>
+        <li>Acionamento da Polícia Federal.</li>
+        <li>Reativação com reforço da segurança das redes.</li>
+        <li>Comunicação transparente aos usuários.</li>
+      </ul>
+      <p><strong>Medidas preventivas ideais:</strong></p>
+      <ul>
+        <li>Firewalls e sistemas IDS/IPS robustos.</li>
+        <li>Monitoramento contínuo e análise comportamental.</li>
+        <li>Redundância e balanceamento de carga.</li>
+        <li>Treinamento da equipe de TI para resposta rápida.</li>
+        <li>VPN e restrição por IP para controlar acessos.</li>
+      </ul>
+    </div>
+    <img class="slide-image" 
+      src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/394f42f7-b6b6-4891-bd18-338b069310a1.png" 
+      alt="Gráfico ilustrando filtro de tráfego e mitigação de ataques DDoS com escudo digital" />
+  </section>
+
+  <!-- Slide 6: Criptografia de Ponta a Ponta (E2EE) -->
+  <section class="slide" id="slide-6" aria-live="polite" aria-atomic="true">
+    <div class="slide-content">
+      <h2>Criptografia de Ponta a Ponta (E2EE)</h2>
+      <p><strong>Definição:</strong> Garante que apenas o remetente e destinatário possam ler o conteúdo da mensagem.</p>
+      <p><strong>Funcionamento:</strong> Uso de chaves criptográficas públicas para criptografar e chaves privadas para descriptografar.</p>
+      <p><strong>Protege contra:</strong></p>
+      <ul>
+        <li>Interceptação e escuta ilegal de mensagens.</li>
+        <li>Acesso não autorizado a servidores e provedores.</li>
+        <li>Vazamento de dados e ataques "man-in-the-middle".</li>
+      </ul>
+      <p>A proteção depende do sigilo das chaves privadas e integridade do protocolo.</p>
+    </div>
+    <img class="slide-image" 
+      src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b8261ab7-e38b-4d2d-9238-2c16e154ba92.png" 
+      alt="Representação gráfica de chaves pública e privada protegendo comunicação entre dois dispositivos" />
+  </section>
+
+  <!-- Slide 7: IAM e CIAM - Gestão de Identidades e Acessos -->
+  <section class="slide" id="slide-7" aria-live="polite" aria-atomic="true">
+    <div class="slide-content">
+      <h2>IAM e CIAM - Gestão de Identidades e Acessos</h2>
+      <p><strong>Objetivo:</strong> Centralizar credenciais para segurança, manutenção, padronização e conformidade com regulações.</p>
+      <p><strong>Principais funcionalidades:</strong></p>
+      <ul>
+        <li>MFA para reduzir uso de credenciais roubadas.</li>
+        <li>SSO para reduzir número de logins.</li>
+        <li>Provisionamento automatizado para restrição de acessos.</li>
+        <li>Políticas RBAC para acesso baseado em função.</li>
+        <li>Auditorias e revisões periódicas para detectar falhas.</li>
+      </ul>
+      <p><strong>Proteção contra ataques:</strong> Phishing, força bruta, credenciais roubadas, escalada de privilégios, etc.</p>
+    </div>
+    <img class="slide-image" 
+      src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f256cc83-0e8c-454f-9c0b-51b6e33020ef.png" 
+      alt="Imagem conceitual de gestão de identidades com cadeado digital e múltiplos usuários conectados" />
+  </section>
+
+  <!-- Slide 8: Destaque Questão sobre Credential Stuffing -->
+  <section class="slide" id="slide-8" aria-live="polite" aria-atomic="true">
+    <div class="slide-content">
+      <h2>Proteção contra Credential Stuffing</h2>
+      <p><strong>Principal forma de defesa:</strong> Implementação de bloqueios inteligentes e autenticação adaptativa, que detectam padrões suspeitos e evitam acessos não autorizados.</p>
+      <p>Outras medidas como MFA e SSO ajudam, mas o foco na autenticação adaptativa é essencial para mitigar esse tipo de ataque.</p>
+    </div>
+    <img class="slide-image" 
+      src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/68b16d4b-76f2-4723-9358-06eba553f9f7.png" 
+      alt="Imagem representando bloqueios inteligentes digitais e autenticação adaptativa em um sistema de segurança" />
+  </section>
+
+  <!-- Slide 9: Considerações Finais -->
+  <section class="slide" id="slide-9" aria-live="polite" aria-atomic="true">
+    <div class="slide-content">
+      <h1>Considerações Finais</h1>
+      <p>Os ataques cibernéticos continuam evoluindo em complexidade e impacto.</p>
+      <p>A adoção de tecnologias avançadas como E2EE e gestão integrada de identidades, junto com estratégias preventivas rigorosas, é vital para proteger dados e infraestrutura.</p>
+      <p>Treinamento humano, monitoramento constante e resposta rápida são pilares críticos para a segurança organizacional.</p>
+    </div>
+    <img class="slide-image" 
+      src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/78938cf4-0e08-46fd-8b8e-236f58ea1011.png" 
+      alt="Imagem simbolizando futuro da segurança cibernética com escudo digital e circuito tecnológico" />
+  </section>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons" role="navigation" aria-label="Navegação da apresentação">
+    <button class="nav-btn" id="prev-btn" aria-label="Slide anterior" disabled>Anterior</button>
+    <button class="nav-btn" id="next-btn" aria-label="Próximo slide">Próximo</button>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const canvas = document.getElementById('background-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    const circles = [];
+    const maxCircles = 40;
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Circle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.radius = 10 + Math.random() * 20;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.speedY = (Math.random() - 0.5) * 0.3;
+        this.alpha = 0.05 + Math.random() * 0.15;
+        this.color = `rgba(138, 99, 210, ${this.alpha})`;
+      }
+      move() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x + this.radius < 0 || this.x - this.radius > width ||
+            this.y + this.radius < 0 || this.y - this.radius > height) {
+          this.reset();
+        }
+      }
+      draw(ctx) {
+        ctx.beginPath();
+        let gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+        gradient.addColorStop(0, 'rgba(138, 99, 210, 0.2)');
+        gradient.addColorStop(1, 'rgba(138, 99, 210, 0)');
+        ctx.fillStyle = gradient;
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for(let i = 0; i < maxCircles; i++) {
+      circles.push(new Circle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      for(const c of circles) {
+        c.move();
+        c.draw(ctx);
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Presentation navigation
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    let currentIndex = 0;
+
+    function updateSlides() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === currentIndex);
+      });
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === slides.length - 1;
+      slides[currentIndex].focus();
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if(currentIndex > 0) {
+        currentIndex--;
+        updateSlides();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if(currentIndex < slides.length - 1) {
+        currentIndex++;
+        updateSlides();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'ArrowRight' || e.key === 'PageDown') {
+        if(currentIndex < slides.length - 1) {
+          currentIndex++;
+          updateSlides();
+        }
+      }
+      if(e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        if(currentIndex > 0) {
+          currentIndex--;
+          updateSlides();
+        }
+      }
+    });
+
+    updateSlides();
+  })();
+</script>
+</body>
+</html>
